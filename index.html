@@ -34,7 +34,16 @@
       <label>Hora de entrada<input type="time" id="start" required></label>
       <label>Hora de saída<input type="time" id="end" required></label>
     </div>
-    <label>Pausa (minutos)<input type="number" id="breakMins" min="0" step="5" value="0" inputmode="numeric"></label>
+    <label>Pausa
+      <select id="breakMins">
+        <option value="0">Sem pausa</option>
+        <option value="30">30 minutos</option>
+        <option value="60">1 hora</option>
+        <option value="90">1 hora e 30 minutos</option>
+        <option value="120">2 horas</option>
+        <option value="150">2 horas e 30 minutos</option>
+      </select>
+    </label>
     <div class="calculation"><span>Total calculado</span><strong id="calculated">—</strong><small>Desconta a pausa. Se a saída for depois da meia-noite, o cálculo também é considerado.</small></div>
     <fieldset><legend>Colegas</legend><div id="colleagueChecks" class="checks empty">Adiciona colegas na área «Obras e colegas».</div></fieldset>
     <label>Observações (opcional)<textarea id="notes" rows="2" placeholder="Ex.: montagem, reparação, deslocação…"></textarea></label>
