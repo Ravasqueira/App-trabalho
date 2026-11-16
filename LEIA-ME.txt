@@ -1,0 +1,39 @@
+REGISTO DE TRABALHO — aplicação web progressiva gratuita
+
+CONTEÚDO
+- index.html, style.css, app.js: aplicação
+- manifest.webmanifest, sw.js, icon.svg: instalação e funcionamento offline
+
+O QUE FAZ
+- Registos por obra/local e por dia (podes criar vários no mesmo dia)
+- Entrada, saída e pausa; cálculo automático de horas
+- Seleção de vários colegas de uma lista guardada
+- Obras e colegas reutilizáveis
+- Histórico, edição e eliminação de registos
+- Resumo mensal por obra
+- Exportação CSV compatível com Excel/Sheets
+- Impressão/guardar como PDF
+- Cópia de segurança e restauro em JSON
+
+IMPORTANTE SOBRE DADOS E PRIVACIDADE
+Os dados ficam no armazenamento local do navegador/dispositivo. Não são enviados automaticamente para a secretaria nem sincronizados com outros dispositivos. Faz cópias de segurança regulares e guarda-as num local seguro. Limpar os dados do navegador pode apagar os registos.
+
+INSTALAR NO ECRÃ INICIAL E USAR OFFLINE
+Para a instalação PWA e cache offline, os ficheiros têm de estar publicados num endereço HTTPS. Uma opção gratuita é o GitHub Pages:
+1. Cria uma conta gratuita em github.com.
+2. Cria um repositório novo (por exemplo, registo-trabalho).
+3. Carrega todos os ficheiros desta pasta para a raiz do repositório.
+4. Nas definições do repositório, abre Pages e escolhe Deploy from a branch, branch main e pasta /(root).
+5. Aguarda a publicação e abre o endereço HTTPS indicado no Chrome do Android.
+6. Abre a aplicação uma vez com internet. No Chrome, menu ⋮ > Adicionar ao ecrã principal (ou Instalar aplicação, se aparecer).
+7. Depois da primeira abertura, a aplicação pode abrir offline. Os dados permanecem no mesmo navegador/dispositivo.
+
+NOTA: o nome dos menus do Chrome pode variar. Não apagues os dados do site. Testa o funcionamento offline antes de depender dele em trabalho.
+
+RELATÓRIO
+No separador Relatórios escolhe o mês:
+- Exportar Excel/CSV cria um ficheiro .csv que pode ser aberto no Excel ou Sheets.
+- Imprimir/guardar PDF abre a impressão do navegador; escolhe Guardar como PDF.
+
+HORAS
+O cálculo subtrai a pausa ao intervalo entre entrada e saída. Se a saída for depois da meia-noite, é tratada como dia seguinte. Se trabalhares em duas obras, cria um registo separado para cada uma. A pausa é descontada em cada registo; divide-a de forma correta para não descontar a mesma pausa duas vezes.

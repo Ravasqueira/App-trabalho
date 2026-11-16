@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#183b35">
+  <meta name="description" content="Registo pessoal de obras, horários e colegas.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Registo de Trabalho</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div><div class="eyebrow">REGISTO PESSOAL</div><h1>Registo de Trabalho</h1></div>
+  <span class="offline" id="connection">● Pronto</span>
+</header>
+<nav class="tabs" aria-label="Navegação">
+  <button class="tab active" data-view="novo">＋ Registar</button>
+  <button class="tab" data-view="historico">Histórico</button>
+  <button class="tab" data-view="listas">Obras e colegas</button>
+  <button class="tab" data-view="relatorios">Relatórios</button>
+</nav>
+<main>
+<section id="view-novo" class="view">
+  <div class="section-head"><div><p class="eyebrow">NOVO LANÇAMENTO</p><h2 id="formTitle">Adicionar trabalho</h2></div><span class="pill">Vários locais por dia</span></div>
+  <form id="entryForm" class="panel">
+    <input type="hidden" id="entryId">
+    <label>Data<input type="date" id="date" required></label>
+    <label>Obra / local de trabalho
+      <select id="site" required><option value="">Escolher obra…</option></select>
+    </label>
+    <div class="two">
+      <label>Hora de entrada<input type="time" id="start" required></label>
+      <label>Hora de saída<input type="time" id="end" required></label>
+    </div>
+    <label>Pausa (minutos)<input type="number" id="breakMins" min="0" step="5" value="0" inputmode="numeric"></label>
+    <div class="calculation"><span>Total calculado</span><strong id="calculated">—</strong><small>Desconta a pausa. Se a saída for depois da meia-noite, o cálculo também é considerado.</small></div>
+    <fieldset><legend>Colegas</legend><div id="colleagueChecks" class="checks empty">Adiciona colegas na área «Obras e colegas».</div></fieldset>
+    <label>Observações (opcional)<textarea id="notes" rows="2" placeholder="Ex.: montagem, reparação, deslocação…"></textarea></label>
+    <div class="actions"><button class="primary" type="submit" id="saveBtn">Guardar registo</button><button type="button" class="quiet" id="cancelEdit" hidden>Cancelar edição</button></div>
+    <p class="hint" id="formHint">Cada obra ou local diferente deve ser guardado num registo separado, mesmo que seja no mesmo dia.</p>
+  </form>
+</section>
+
+<section id="view-historico" class="view" hidden>
+  <div class="section-head"><div><p class="eyebrow">OS TEUS LANÇAMENTOS</p><h2>Histórico</h2></div></div>
+  <div class="panel filters">
+    <label>Mês<input type="month" id="historyMonth"></label>
+    <label>Obra<select id="historySite"><option value="">Todas as obras</option></select></label>
+  </div>
+  <div id="historySummary" class="summary-strip"></div>
+  <div id="entriesList" class="stack"></div>
+</section>
+
+<section id="view-listas" class="view" hidden>
+  <div class="section-head"><div><p class="eyebrow">DADOS REUTILIZÁVEIS</p><h2>Obras e colegas</h2></div></div>
+  <div class="panel">
+    <h3>Obras / locais</h3>
+    <form id="siteForm" class="inline-form"><input id="siteName" placeholder="Nome da obra ou local" required maxlength="80"><button class="primary" type="submit">Adicionar</button></form>
+    <div id="sitesList" class="chips"></div>
+  </div>
+  <div class="panel">
+    <h3>Colegas</h3>
+    <form id="personForm" class="inline-form"><input id="personName" placeholder="Nome do colega" required maxlength="80"><button class="primary" type="submit">Adicionar</button></form>
+    <div id="peopleList" class="chips"></div>
+  </div>
+  <p class="hint">Podes remover nomes que já não uses. Os registos antigos mantêm os nomes que tinham no momento em que foram guardados.</p>
+</section>
+
+<section id="view-relatorios" class="view" hidden>
+  <div class="section-head"><div><p class="eyebrow">FECHO DO MÊS</p><h2>Relatórios</h2></div></div>
+  <div class="panel">
+    <label>Escolher mês<input type="month" id="reportMonth"></label>
+    <div id="reportSummary" class="report-summary"></div>
+    <div class="actions wrap">
+      <button class="primary" id="exportCsv">Exportar Excel / CSV</button>
+      <button class="secondary" id="printReport">Imprimir / guardar PDF</button>
+    </div>
+    <p class="hint">O CSV abre no Excel ou Google Sheets. Para PDF, escolhe «Guardar como PDF» na janela de impressão do telemóvel/computador.</p>
+  </div>
+  <div class="panel">
+    <h3>Cópia de segurança</h3>
+    <p class="hint">Os dados ficam guardados neste dispositivo e neste navegador. Faz uma cópia de segurança regularmente.</p>
+    <div class="actions wrap"><button class="secondary" id="backup">Descarregar cópia de segurança</button><label class="file-button">Restaurar cópia<input type="file" id="restoreFile" accept="application/json"></label></div>
+  </div>
+</section>
+</main>
+<footer>Os teus registos ficam guardados localmente neste dispositivo.</footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
