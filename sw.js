@@ -1,5 +1,5 @@
 
-const CACHE='registo-trabalho-v4';
+const CACHE='registo-trabalho-v5';
 
 const FILES=[
   './',
