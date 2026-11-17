@@ -68,6 +68,29 @@
     document.getElementById('googleSyncButton').addEventListener('click', connectAndSync);
     updatePanel();
   }
+  function addStartupPrompt() {
+  if (!config.spreadsheetId || document.getElementById('googleStartupSync')) return;
+
+  const main = document.querySelector('main');
+  if (!main) return;
+
+  const prompt = document.createElement('div');
+  prompt.className = 'panel';
+  prompt.id = 'googleStartupSync';
+
+  prompt.innerHTML = `
+    <strong>Sincronização Google Sheets</strong>
+    <p class="hint">Para atualizar a folha Google nesta abertura, autoriza e sincroniza.</p>
+    <button type="button" class="primary" id="googleStartupSyncButton">
+      Autorizar e sincronizar
+    </button>
+  `;
+
+  main.prepend(prompt);
+
+  document.getElementById('googleStartupSyncButton')
+    .addEventListener('click', connectAndSync);
+}
 
   function updatePanel() {
     const file = document.getElementById('googleSyncFile');
@@ -384,9 +407,14 @@
     }
   });
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addPanel);
-  } else {
-    addPanel();
-  }
+  function initializeSyncUI() {
+  addPanel();
+  addStartupPrompt();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeSyncUI);
+} else {
+  initializeSyncUI();
+}
 })();
