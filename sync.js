@@ -194,38 +194,13 @@
     return response.json();
   }
 
+  
   async function ensureRegistosTab(spreadsheetId) {
-    const url = 'https://sheets.googleapis.com/v4/spreadsheets/' +
-      encodeURIComponent(spreadsheetId) + '?fields=sheets.properties';
-
-    const data = await apiRequest(url);
-    const exists = (data.sheets || []).some(
-      sheet => sheet.properties?.title === 'Registos'
-    );
-
-    
-    if (!exists) {
-      try {
-        await apiRequest(
-          'https://sheets.googleapis.com/v4/spreadsheets/' +
-          encodeURIComponent(spreadsheetId) + ':batchUpdate',
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              requests: [{ addSheet: { properties: { title: 'Registos' } } }]
-            })
-          }
-        );
-      } catch (error) {
-        const latest = await apiRequest(url);
-        const nowExists = (latest.sheets || []).some(
-          sheet => sheet.properties?.title === 'Registos'
-        );
-
-        if (!nowExists) throw error;
-      }
+    if (!spreadsheetId) {
+      throw new Error('Ainda não selecionaste uma folha Google.');
     }
   }
+
 
   function getRows() {
     let db;
