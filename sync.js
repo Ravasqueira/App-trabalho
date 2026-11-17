@@ -203,19 +203,29 @@
       sheet => sheet.properties?.title === 'Registos'
     );
 
+    
     if (!exists) {
-      await apiRequest(
-        'https://sheets.googleapis.com/v4/spreadsheets/' +
-        encodeURIComponent(spreadsheetId) + ':batchUpdate',
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            requests: [{ addSheet: { properties: { title: 'Registos' } } }]
-          })
-        }
-      );
+      try {
+        await apiRequest(
+          'https://sheets.googleapis.com/v4/spreadsheets/' +
+          encodeURIComponent(spreadsheetId) + ':batchUpdate',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              requests: [{ addSheet: { properties: { title: 'Registos' } } }]
+            })
+          }
+        );
+      } catch (error) {
+        const latest = await apiRequest(url);
+        const nowExists = (latest.sheets || []).some(
+          sheet => sheet.properties?.title === 'Registos'
+        );
+
+        if (!nowExists) throw error;
+      }
     }
-  }
+
 
   function getRows() {
     let db;
