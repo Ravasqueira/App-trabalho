@@ -225,7 +225,7 @@
         if (!nowExists) throw error;
       }
     }
-
+  }
 
   function getRows() {
     let db;
